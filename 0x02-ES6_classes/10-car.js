@@ -5,7 +5,7 @@ export default class Car {
     this._color = color;
   }
 
-  get brandr() {
+  get brand() {
     return this._brand;
   }
 
