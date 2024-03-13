@@ -1,34 +1,31 @@
-import { Subjects } from "./Cpp";
-export const cpp = new Subjects.Cpp();
+export const cpp: Subjects.Cpp = new Subjects.Cpp();
 
-import { Subjects as SubjectsJava } from "./Java";
-export const java = new SubjectsJava.Java();
+export const java: Subjects.Java = new Subjects.Java();
 
-import { Subjects as SubjectsReact } from "./React";
-export const react = new SubjectsReact.React();
+export const react: Subjects.React = new Subjects.React();
 
 const cTeacher: Subjects.Teacher = {
   firstName: "John",
   lastName: "Doe",
-  experienceTeachingc: 10,
+  experienceTeachingC: 10,
 };
 
 // for cpp
 console.log("C++");
 cpp.setTeacher(cTeacher);
-console.log(cpp.Requirements());
+console.log(cpp.getRequirements());
 console.log(cpp.getAvailableTeacher());
 
 // for Java
 
 console.log("Java");
 java.setTeacher(cTeacher);
-console.log(java.Requirements());
+console.log(java.getRequirements());
 console.log(java.getAvailableTeacher());
 
 // for React
 
 console.log("React");
 react.setTeacher(cTeacher);
-console.log(react.Requirements());
+console.log(react.getRequirements());
 console.log(react.getAvailableTeacher());

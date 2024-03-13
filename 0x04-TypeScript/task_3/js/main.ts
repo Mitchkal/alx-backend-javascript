@@ -14,5 +14,5 @@ const updatedRow: RowElement = {
   age: 23,
 };
 
-CRUD.updatedRow(newRowID, updatedRow);
-CRUD.deleteROW(newRowID);
+CRUD.updateRow(newRowID, updatedRow);
+CRUD.deleteRow(newRowID);
