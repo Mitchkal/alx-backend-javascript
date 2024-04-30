@@ -3,7 +3,7 @@ const fs = require('fs/promises');
 const countStudents = (path) => new Promise((resolve, reject) => {
   fs.readFile(path, 'utf-8')
     .then((data) => {
-      const lines = data.trim().split('\n');
+      const lines = data.toString('utf-8').trim().split('\n');
       const students = lines.slice(1).map((line) => line.split(','));
       const fields = {};
 

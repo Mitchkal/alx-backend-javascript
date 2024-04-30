@@ -6,6 +6,8 @@ const port = 1245;
 
 const fs = require('fs/promises');
 
+const DB_FILE = process.argv.length > 2 ? process.argv[2] : '';
+
 const countStudents = (path) => new Promise((resolve) => {
   fs.readFile(path, 'utf-8')
     .then((data) => {
@@ -53,7 +55,7 @@ const app = http.createServer(async (req, res) => {
     res.end('Hello Holberton School!');
   } else if (req.url === '/students') {
     try {
-      const data = await countStudents('database.csv');
+      const data = await countStudents(DB_FILE);
       res.writeHead(200, { 'Content-Type': 'text/plain' });
       res.end(data);
     } catch (error) {
