@@ -8,46 +8,51 @@ const fs = require('fs/promises');
 
 const DB_FILE = process.argv.length > 2 ? process.argv[2] : '';
 
-const countStudents = (path) => new Promise((resolve) => {
-  fs.readFile(path, 'utf-8')
-    .then((data) => {
-      const lines = data.trim().split('\n');
-      const students = lines.slice(1).map((line) => line.split(','));
-      const fields = {};
+const util = require('util');
+// const { resourceLimits } = require('worker_threads');
+const { resolve } = require('path');
 
-      students.forEach((student) => {
-        const field = student[3];
+const readFileAsync = util.promisify(fs.readFile);
 
-        if (
-          field !== undefined
-            && field.trim() !== ''
-            && field !== 'firstname'
-        ) {
-          if (!fields[field]) {
-            fields[field] = [];
-          }
-          fields[field].push(student[0]);
+async function countStudents(path) {
+  try {
+    const data = await readFileAsync(path, 'utf8');
+    const students = data.trim().split('\n').slice(1); // Remove the header line
+
+    const fields = {};
+    const studentsByField = {};
+
+    students.forEach((student) => {
+      if (student) {
+        const [firstName, lastName, , field] = student.split(',');
+        if (!fields[field]) {
+          fields[field] = [];
         }
-      });
+        fields[field].push(firstName);
 
-      const totalStudents = students.length;
-      const results = [`Number of students: ${totalStudents}`];
-
-      for (const field in fields) {
-        if (Object.prototype.hasOwnProperty.call(fields, field)) {
-          results.push(
-            `Number of students in ${field}: ${
-              fields[field].length
-            }. List: ${fields[field].join(', ')}`,
-          );
+        if (!studentsByField[field]) {
+          studentsByField[field] = [];
         }
+        studentsByField[field].push(`${firstName} ${lastName}`);
       }
-      resolve(results.join('\n'));
-    })
-    .catch(() => {
-      throw new Error('Cannot load the database');
     });
-});
+
+    const results = [`Number of students: ${students.length}`];
+
+    for (const [field, names] of Object.entries(fields)) {
+      results.push(
+        `Number of students in ${field}: ${names.length}. List: ${names.join(
+          ', ',
+        )}`,
+      );
+    }
+    resolve(results.join('\n'));
+
+    // return students.length;
+  } catch (err) {
+    throw new Error('Cannot load the database');
+  }
+}
 
 const app = http.createServer(async (req, res) => {
   if (req.url === '/') {
