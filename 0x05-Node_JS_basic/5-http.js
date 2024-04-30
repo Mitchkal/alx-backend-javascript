@@ -4,14 +4,12 @@ const http = require('http');
 
 const port = 1245;
 
-const fs = require('fs/promises');
+const fs = require('fs');
 
 const DB_FILE = process.argv.length > 2 ? process.argv[2] : '';
 
 const util = require('util');
 // const { resourceLimits } = require('worker_threads');
-const { resolve } = require('path');
-
 const readFileAsync = util.promisify(fs.readFile);
 
 async function countStudents(path) {
@@ -38,7 +36,6 @@ async function countStudents(path) {
     });
 
     const results = [`Number of students: ${students.length}`];
-
     for (const [field, names] of Object.entries(fields)) {
       results.push(
         `Number of students in ${field}: ${names.length}. List: ${names.join(
@@ -46,9 +43,8 @@ async function countStudents(path) {
         )}`,
       );
     }
-    resolve(results.join('\n'));
 
-    // return students.length;
+    return results.join('\n');
   } catch (err) {
     throw new Error('Cannot load the database');
   }
