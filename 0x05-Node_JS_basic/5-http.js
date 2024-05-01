@@ -1,20 +1,15 @@
 const http = require('http');
 
-// const countStudents = require('./3-read_file_async');
-
 const port = 1245;
-
 const fs = require('fs');
+const util = require('util');
 
 const DB_FILE = process.argv.length > 2 ? process.argv[2] : '';
-
-const util = require('util');
-// const { resourceLimits } = require('worker_threads');
 const readFileAsync = util.promisify(fs.readFile);
 
-async function countStudents(path) {
+async function countStudents(DB_FILE) {
   try {
-    const data = await readFileAsync(path, 'utf8');
+    const data = await readFileAsync(DB_FILE, 'utf8');
     const students = data.trim().split('\n').slice(1); // Remove the header line
 
     const fields = {};
@@ -72,5 +67,3 @@ const app = http.createServer(async (req, res) => {
 app.listen(port, () => {
   console.log('Server running at http://127.0.0.1:1245/');
 });
-
-module.exports = app;
