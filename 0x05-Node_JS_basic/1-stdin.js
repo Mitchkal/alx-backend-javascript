@@ -4,10 +4,7 @@ process.stdin.setEncoding('utf8');
 process.stdin.on('readable', () => {
   const chunk = process.stdin.read();
   if (chunk !== null) {
-    const name = chunk.toString().trim();
-    if (name) {
-      process.stdout.write(`Your name is: ${name}\n`);
-    }
+    process.stdout.write(`Your name is: ${chunk}`);
   }
 });
 process.stdin.on('end', () => {
