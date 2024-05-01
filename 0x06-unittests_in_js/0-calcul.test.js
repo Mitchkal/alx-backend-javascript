@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const assert = require('assert');
 const calculateNumber = require('./0-calcul');
 const { describe } = require('mocha');
