@@ -7,8 +7,6 @@ process.stdin.on('readable', () => {
     const name = chunk.toString().trim();
     if (name) {
       process.stdout.write(`Your name is: ${name}\n`);
-    } else {
-      process.stdout.write('Your name is: \n');
     }
   }
 });
