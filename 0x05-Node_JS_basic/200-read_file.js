@@ -19,7 +19,7 @@ function countStudents(path) {
     let totalStudents = 0;
     for (const field in fields) {
       if (Object.prototype.hasOwnProperty.call(fields, field)) {
-        totalStudents += fields[field].length - 1;
+        totalStudents += fields[field].length;
         console.log(
           `Number of students in ${field}: ${
             fields[field].length
