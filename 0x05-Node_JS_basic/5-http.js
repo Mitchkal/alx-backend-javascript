@@ -7,9 +7,10 @@ const util = require('util');
 const DB_FILE = process.argv.length > 2 ? process.argv[2] : '';
 const readFileAsync = util.promisify(fs.readFile);
 
-async function countStudents(DB_FILE) {
+async function countStudents(path) {
   try {
-    const data = await readFileAsync(DB_FILE, 'utf8');
+    const data = await readFileAsync(path, 'utf8');
+
     const students = data.trim().split('\n').slice(1); // Remove the header line
 
     const fields = {};
@@ -57,7 +58,7 @@ const app = http.createServer(async (req, res) => {
       res.end(data);
     } catch (error) {
       res.writeHead(500, { 'Content-Type': 'text/plain' });
-      res.end('Internal Server Error');
+      res.end('Cannot load the database');
     }
   } else {
     res.writeHead(404, { 'Content-Type': 'text/plain' });
