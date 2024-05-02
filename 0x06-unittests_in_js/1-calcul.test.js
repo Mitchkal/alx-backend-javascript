@@ -4,7 +4,7 @@ const calculateNumber = require('./1-calcul');
 // const { describe } = require('mocha');
 
 describe('calculateNumber function', () => {
-  describe('SUM', () => {
+  describe('sUM', () => {
     it('should return the sum of rounded numbers', () => {
       assert.strictEqual(calculateNumber('SUM', 1.2, 3.7), 5);
     });
@@ -25,7 +25,7 @@ describe('calculateNumber function', () => {
       assert.strictEqual(calculateNumber('SUM', 0, 0), 0);
     });
   });
-  describe('SUBTRACT', () => {
+  describe('sUBTRACT', () => {
     it('should return the difference of rounded numbers', () => {
       assert.strictEqual(calculateNumber('SUBTRACT', 3.7, 2), 2);
     });
@@ -47,7 +47,7 @@ describe('calculateNumber function', () => {
     });
   });
 
-  describe('DIVIDE', () => {
+  describe('dIVIDE', () => {
     it('should return the quotient of rounded numbers', () => {
       assert.strictEqual(calculateNumber('DIVIDE', 9.5, 2.1), 5);
     });

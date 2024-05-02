@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const assert = require('assert');
-const calculateNumber = require('./0-calcul');
 const { describe } = require('mocha');
+const calculateNumber = require('./0-calcul');
 
 describe('calculateNumber function', () => {
   it('should return the sum of rounded numbers', () => {
