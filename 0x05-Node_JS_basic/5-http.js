@@ -30,7 +30,8 @@ async function countStudents(DB_FILE) {
       }
     });
 
-    const results = [`Number of students: ${students.length}`];
+    const results = ['This is the list of our students'];
+    results.push(`Number of students: ${students.length}`);
     for (const [field, names] of Object.entries(fields)) {
       results.push(
         `Number of students in ${field}: ${names.length}. List: ${names.join(
