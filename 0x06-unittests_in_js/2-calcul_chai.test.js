@@ -1,8 +1,10 @@
 /* eslint-disable no-undef */
+// import { createRequire } from 'module';
+// const require = createRequire(import.meta.url);
 
-import { expect } from 'chai';
+const { expect } = require('chai');
 // import { expect } from 'chai';
-import calculateNumber from './2-calcul_chai.js';
+const calculateNumber = require('./2-calcul_chai').default;
 
 describe('calculateNumber function', () => {
   describe('SUM', () => {
