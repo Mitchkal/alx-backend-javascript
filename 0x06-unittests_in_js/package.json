@@ -2,10 +2,12 @@
   "name": "0x06-unittests_in_js",
   "version": "1.0.0",
   "description": "",
-  "main": "0-calcul.js",
+  "main": "main.js",
   "scripts": {
-    "test": "mocha",
-    "lint": "eslint ."
+    "test": "mocha --require @babel/register",
+    "lint": "./node_modules/.bin/eslint",
+    "lint-all": "./node_modules/.bin/eslint [0-9]*.js",
+    "lint-fix-all": "./node_modules/.bin/eslint --fix [0-9]*.js"
   },
   "author": "",
   "license": "ISC",
