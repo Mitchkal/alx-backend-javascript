@@ -11,11 +11,13 @@ async function countStudents(path) {
   try {
     const data = await readFileAsync(path, 'utf8');
 
-    const students = data.trim().split('\n').slice(1); // Remove the header line
-
+    const students = data
+      .trim()
+      .split('\n')
+      .splice(1)
+      .filter((line) => line.trim() !== ''); // Remove empty lines
     const fields = {};
     // const studentsByField = {};
-
     students.forEach((student) => {
       if (student) {
         const [firstName, , , field] = student.split(',');
@@ -24,11 +26,6 @@ async function countStudents(path) {
           fields[field] = [];
         }
         fields[field].push(firstName);
-
-        // if (!studentsByField[field]) {
-        //   studentsByField[field] = [];
-        // }
-        // studentsByField[field].push(`${firstName} ${lastName}`);
       }
     });
 
@@ -58,12 +55,12 @@ const app = http.createServer(async (req, res) => {
       res.writeHead(200, { 'Content-Type': 'text/plain' });
       res.end(data);
     } catch (error) {
-      res.writeHead(200, { 'Content-Type': 'text/plain' });
+      res.writeHead(500, { 'Content-Type': 'text/plain' });
       res.end('Cannot load the database');
     }
   } else {
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.end('Hello Holberton School!');
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    res.end('Not found');
   }
 });
 
