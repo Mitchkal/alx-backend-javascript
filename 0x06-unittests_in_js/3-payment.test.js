@@ -10,6 +10,7 @@ describe('sendPaymentRequestToApi', () => {
 
     expect(calculateNumberSpy.callCount).to.be.equal(1);
     expect(calculateNumberSpy.firstCall.args).to.deep.equal(['SUM', 100, 20]);
+    expect(calculateNumberSpy.returned(120)).to.be.true;
 
     calculateNumberSpy.restore();
   });
