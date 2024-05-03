@@ -9,7 +9,7 @@ describe('sendPaymentRequestToApi', () => {
       .stub(Utils, 'calculateNumber')
       .returns(10);
 
-    const consoleLogSpy = sinon.spy(console, 'log');
+    const consoleLogSpy = sinon.spy(console);
     sendPaymentRequestToApi(100, 20);
 
     expect(calculateNumberStub.calledOnceWithExactly('SUM', 100, 20)).to.be
