@@ -8,9 +8,12 @@ app.get('/', (req, res) => {
   res.send('Welcome to the payment system');
 });
 
-app.get('/cart/:id(\\d+)', (req, res) => {
+app.get('/cart/:id', (req, res) => {
   const { id } = req.params;
-  res.send(`Payment methods for cart ${id}`);
+  if (!/^\d+$/.test(id)) {
+    return res.status(404).send('Invalid cart ID');
+  }
+  return res.send(`Payment methods for cart ${id}`);
 });
 
 app.listen(PORT, () => {
