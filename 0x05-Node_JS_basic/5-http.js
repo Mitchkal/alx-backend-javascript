@@ -1,8 +1,8 @@
 const http = require('http');
-
-const port = 1245;
 const fs = require('fs');
 const util = require('util');
+
+const port = 1245;
 
 const DB_FILE = process.argv.length > 2 ? process.argv[2] : '';
 const readFileAsync = util.promisify(fs.readFile);
@@ -62,8 +62,8 @@ const app = http.createServer(async (req, res) => {
       res.end('Cannot load the database');
     }
   } else {
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end('Not Found');
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('Hello Holberton School!');
   }
 });
 
