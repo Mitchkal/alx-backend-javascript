@@ -14,21 +14,20 @@ async function countStudents(path) {
     const students = data.trim().split('\n').slice(1); // Remove the header line
 
     const fields = {};
-    // const studentsByField = {};
+    const studentsByField = {};
 
     students.forEach((student) => {
       if (student) {
-        const [firstName, , , field] = student.split(',');
-        // check if a field entry is empty and create it
+        const [firstName, lastName, , field] = student.split(',');
         if (!fields[field]) {
           fields[field] = [];
         }
         fields[field].push(firstName);
 
-        // if (!studentsByField[field]) {
-        //   studentsByField[field] = [];
-        // }
-        // studentsByField[field].push(`${firstName} ${lastName}`);
+        if (!studentsByField[field]) {
+          studentsByField[field] = [];
+        }
+        studentsByField[field].push(`${firstName} ${lastName}`);
       }
     });
 
@@ -70,4 +69,3 @@ const app = http.createServer(async (req, res) => {
 app.listen(port, () => {
   console.log('Server running at http://127.0.0.1:1245/');
 });
-module.exports = app;

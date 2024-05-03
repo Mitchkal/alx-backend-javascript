@@ -1,47 +1,44 @@
-const http = require('http');
-
-const port = 1245;
 const fs = require('fs');
 const util = require('util');
+const http = require('node:http');
+
+const port = 1245;
 
 const DB_FILE = process.argv.length > 2 ? process.argv[2] : '';
+
 const readFileAsync = util.promisify(fs.readFile);
 
 async function countStudents(path) {
   try {
-    const data = await readFileAsync(path, 'utf8');
+    const data = await readFileAsync(path, 'utf-8');
+    if (data === '') {
+      throw new Error('Cannot load the database');
+    }
 
-    const students = data.trim().split('\n').slice(1); // Remove the header line
+    const students = data.trim().split('\n').slice(1);
 
     const fields = {};
-    // const studentsByField = {};
 
     students.forEach((student) => {
       if (student) {
-        const [firstName, , , field] = student.split(',');
-        // check if a field entry is empty and create it
+        const [firstName, , , field] = student.split(', ');
+
         if (!fields[field]) {
           fields[field] = [];
         }
         fields[field].push(firstName);
-
-        // if (!studentsByField[field]) {
-        //   studentsByField[field] = [];
-        // }
-        // studentsByField[field].push(`${firstName} ${lastName}`);
       }
     });
-
     const results = ['This is the list of our students'];
     results.push(`Number of students: ${students.length}`);
+
     for (const [field, names] of Object.entries(fields)) {
       results.push(
-        `Number of students in ${field}: ${names.length}. List: ${names.join(
-          ', ',
+        `Number of students in ${field}: ${names.length}.List: ${names.join(
+          ',',
         )}`,
       );
     }
-
     return results.join('\n');
   } catch (err) {
     throw new Error('Cannot load the database');
@@ -51,7 +48,6 @@ async function countStudents(path) {
 const app = http.createServer(async (req, res) => {
   if (req.url === '/') {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.end('Hello Holberton School!');
   } else if (req.url === '/students') {
     try {
       const data = await countStudents(DB_FILE);
@@ -70,4 +66,5 @@ const app = http.createServer(async (req, res) => {
 app.listen(port, () => {
   console.log('Server running at http://127.0.0.1:1245/');
 });
+
 module.exports = app;
