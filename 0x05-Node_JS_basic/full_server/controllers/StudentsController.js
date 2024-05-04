@@ -1,9 +1,11 @@
 const readDatabase = require('../utils');
 
+const path = process.argv.length > 2 ? process.argv[2] : '';
+
 class StudentsController {
   static async getAllStudents(_request, res) {
     try {
-      const database = await readDatabase('database.csv');
+      const database = await readDatabase(path);
       const fields = Object.keys(database).sort((a, b) => a.localeCompare(b, 'en', { sensitivity: 'base' }));
       const response = ['This is the list of our students'];
       fields.forEach((field) => {
@@ -27,7 +29,7 @@ class StudentsController {
       return;
     }
     try {
-      const database = await readDatabase('database.csv');
+      const database = await readDatabase(path);
       const students = database[major] || [];
       const studentList = students.join(', ');
       res.status(200).send(`List: ${studentList}`);
