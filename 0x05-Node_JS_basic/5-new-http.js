@@ -35,7 +35,7 @@ async function countStudents(path) {
     for (const [field, names] of Object.entries(fields)) {
       results.push(
         `Number of students in ${field}: ${names.length}.List: ${names.join(
-          ',',
+          ', ',
         )}`,
       );
     }
